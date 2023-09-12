@@ -1,7 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:protextile/core/constants/app_text_constants.dart';
 import 'package:protextile/routes/mobile_auto_router.dart';
 import 'package:protextile/server/service_locator.dart';
@@ -18,6 +22,7 @@ void main() async {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
   ]);
   runApp(const Main());
+  
 }
 
 class Main extends StatelessWidget {
@@ -44,3 +49,5 @@ class Main extends StatelessWidget {
     );
   }
 }
+
+/////add
