@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:protextile/core/constants/app_text_constants.dart';
 import 'package:protextile/routes/mobile_auto_router.dart';
 import 'package:protextile/server/service_locator.dart';
@@ -13,10 +12,7 @@ final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 final appRouter = sl<AppRouter>();
 
 void main() async {
-  await Future.wait([
-    init(),
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-  ]);
+  await init();
   runApp(const Main());
 }
 

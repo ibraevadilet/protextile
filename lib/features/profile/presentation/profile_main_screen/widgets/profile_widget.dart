@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:protextile/theme/app_colors.dart';
 import 'package:protextile/theme/app_text_styles.dart';
@@ -16,17 +17,18 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          Container(
-            width: getWidth(context),
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+        CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: onTap,
+          child: Container(
+            width: context.width,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              color: AppColors.orangeff5733,
+              color: AppColors.colore30611Red,
             ),
             child: Row(
               children: [
@@ -44,8 +46,8 @@ class ProfileWidget extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:protextile/features/bottom_navigator/presentation/bottom_navigator_cubit/bottom_navigator_cubit.dart';
 import 'package:protextile/features/customer/presentation/customer_screen.dart';
-import 'package:protextile/features/profile/presentation/profile_screen.dart';
+import 'package:protextile/features/profile/presentation/profile_main_screen/profile_screen.dart';
 import 'package:protextile/features/sewing_factory/presentation/sewing_factory_screen.dart';
 import 'package:protextile/theme/app_colors.dart';
 
@@ -17,13 +17,23 @@ class BottomNavigatorScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: pages[state.index],
+          floatingActionButton: state.index != 2
+              ? FloatingActionButton(
+                  backgroundColor: Colors.white,
+                  onPressed: () {},
+                  child: const Icon(
+                    Icons.add,
+                    color: AppColors.colore30611Red,
+                  ),
+                )
+              : null,
           bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(14),
               topRight: Radius.circular(14),
             ),
             child: BottomNavigationBar(
-              backgroundColor: AppColors.orangeff5733,
+              backgroundColor: AppColors.colore30611Red,
               type: BottomNavigationBarType.fixed,
               selectedItemColor: AppColors.white,
               unselectedFontSize: 12,

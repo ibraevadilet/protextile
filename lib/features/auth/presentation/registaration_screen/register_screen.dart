@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:protextile/core/functions/push_router_func.dart';
-import 'package:protextile/routes/mobile_auto_router.gr.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:protextile/core/formatters/validators.dart';
+import 'package:protextile/features/auth/presentation/registaration_screen/cubits/register_cubit/register_cubit.dart';
+import 'package:protextile/server/service_locator.dart';
 import 'package:protextile/theme/app_colors.dart';
-import 'package:protextile/theme/app_text_styles.dart';
+import 'package:protextile/widgets/app_unfocuser.dart';
+import 'package:protextile/widgets/custom_app_bar.dart';
 import 'package:protextile/widgets/custom_text_fields.dart';
-import 'package:protextile/widgets/default_button.dart';
+import 'package:protextile/widgets/custom_button.dart';
 
 @RoutePage()
 class RegisterScreen extends StatelessWidget {
@@ -13,47 +16,74 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 19),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Регистрация',
-              style: AppTextStyles.s28W900(
-                color: AppColors.colore30611Red,
+    return AppUnfocuser(
+      child: BlocProvider(
+        create: (context) => sl<RegisterCubit>(),
+        child: Scaffold(
+          appBar: const CustomAppBar(title: 'Регистрация'),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 19),
+            child: Builder(
+              builder: (context) => Form(
+                key: context.read<RegisterCubit>().formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomTextField(
+                      labelText: 'Имя',
+                      controller: context.read<RegisterCubit>().nameController,
+                      validator: InputValidators.emptyValidator,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      labelText: 'Email',
+                      controller: context.read<RegisterCubit>().loginController,
+                      validator: InputValidators.emptyValidator,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      obscureText: true,
+                      labelText: 'Пароль',
+                      controller:
+                          context.read<RegisterCubit>().passwordController,
+                      validator: InputValidators.emptyValidator,
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      obscureText: true,
+                      labelText: 'Повторить пароль',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Поле обязательно для заполнения';
+                        } else if (context
+                                .read<RegisterCubit>()
+                                .passwordController
+                                .text !=
+                            value) {
+                          return 'Проли не совпадают';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    BlocBuilder<RegisterCubit, RegisterState>(
+                      builder: (context, state) {
+                        return CustomButton(
+                          isLoading: state.isLoading,
+                          isFullFilled: false,
+                          color: AppColors.colore30611Red,
+                          textColor: AppColors.colore30611Red,
+                          onPress: () => context.read<RegisterCubit>().auth(),
+                          text: 'Зарегистрироваться',
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-              overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 20),
-            const CustomTextField(
-              labelText: 'Логин',
-            ),
-            const SizedBox(height: 20),
-            const CustomTextField(
-              labelText: 'Почта',
-            ),
-            const SizedBox(height: 20),
-            const CustomTextField(
-              labelText: 'Пароль',
-            ),
-            const SizedBox(height: 20),
-            const CustomTextField(
-              labelText: 'Повторить пароль',
-            ),
-            const SizedBox(height: 20),
-            CustomButton(
-              isFullFilled: false,
-              color: AppColors.colore30611Red,
-              textColor: AppColors.colore30611Red,
-              onPress: () {
-                pushAndPopUntilFunction(const BottomNavigatorRoute());
-              },
-              text: 'Зарегистрироваться',
-            ),
-          ],
+          ),
         ),
       ),
     );

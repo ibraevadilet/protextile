@@ -20,6 +20,7 @@ class CustomButton extends StatelessWidget {
     this.child,
     this.isNotFullColor,
     this.textColor = Colors.white,
+    this.indicatorColor = AppColors.colore30611Red,
   }) : super(key: key);
 
   final double? width;
@@ -35,6 +36,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function() onPress;
   final Widget? child;
+  final Color? indicatorColor;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: isLoading
-            ? const AppIndicator(color: AppColors.white)
+            ? AppIndicator(color: indicatorColor)
             : child ??
                 Text(
                   text!,

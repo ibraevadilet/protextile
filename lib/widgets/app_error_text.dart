@@ -4,7 +4,7 @@ import 'package:protextile/theme/app_text_styles.dart';
 import 'package:protextile/widgets/spaces.dart';
 import 'package:protextile/theme/app_colors.dart';
 import 'package:protextile/translations/locale_keys.g.dart';
-import 'package:protextile/widgets/default_button.dart';
+import 'package:protextile/widgets/custom_button.dart';
 
 class AppErrorText extends StatelessWidget {
   const AppErrorText({
@@ -20,7 +20,7 @@ class AppErrorText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: SizedBox(
-        width: getWidth(context),
+        width: context.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
